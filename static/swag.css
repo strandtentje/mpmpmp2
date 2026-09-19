@@ -1,0 +1,123 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+body {
+	position: relative;
+	overflow: hidden;
+	width: 100svw;
+	height: 100svh;
+	background-color: #223322;
+	background-image: url('/static/wp.jpg');
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+nav {
+	position: absolute;
+	bottom: 0;
+	height: 36px;
+	width: 100svw;
+	backdrop-filter: brightness(70%) blur(3px);
+}
+
+div#innertaskbar, div#outtertaskbar {
+	width: 100%;
+	height: 100%;
+}
+
+div#outtertaskbar {
+	border-top: solid 1px #34343433;
+}
+
+div#innertaskbar {
+	border-top: solid 1px #ffffffa6;
+	background: linear-gradient(to bottom, #cdcdcd4d 0%, #4c4c4c9c 45%, #21212194 45%, #000000a1 100%);
+	position: relative;
+	overflow: clip;
+}
+
+div#buttonhole, 
+button#mainbutton {
+	position: absolute;
+}
+
+button#mainbutton {
+	width: 52px;
+	height: 52px;
+	left: 16px;
+	top: -10px;
+	border-radius: 52px;
+	border: none;
+	background: 	
+		radial-gradient(circle 90px at 50% 130%,
+					   #55b9af 0%, #1d4e62 49%, #4e7589 50%, #cae9eb 80%);
+	box-shadow: 
+		inset 4px 20px 30px -25px #ffffff,
+		0px 3px 4px 1px #2f2f2f;
+	border-bottom: solid 1px white;
+	transition: 0.3s ease-in-out;
+}
+
+button#mainbutton:hover {
+	transition: 0.5s ease-in-out;
+	background: 	
+		radial-gradient(circle 90px at 50% 130%,
+					   #c1fff9 0%, #2d657d 49%, #7192a4 50%, #fbffff 80%);
+	box-shadow: 
+		inset 4px 20px 30px -25px #ffffff,
+		0px 3px 7px 2px #3c80a6;
+	border-bottom: solid 1px white;
+	
+}
+
+div#buttonhole {
+	
+	width: 56px;
+	height: 56px;
+	left: 13px;
+	top: -13px;
+	border-radius: 56px;
+	background: linear-gradient(to bottom, #000000d4 0%, #eaeaea57 100%);
+	border-left: solid 1px #ffffff2b;
+	border-right: solid 1px #ffffff2b;
+
+}
+
+div#quicklaunch {
+	position: relative;
+	left: 80px;
+	top: 0px;
+	height: 100%;
+}
+
+div#quicklaunch button {
+	width: 28px;
+	height: 28px;
+	font-size: 13.5pt;
+	position: relative;
+	top: 2px;
+	background: none;
+	margin-right: 2px;
+	margin-left: 2px;
+	display: inline-block;
+	text-align: center;
+	border: none;
+	place-content: center center;
+}
+
+div#quicklaunch button:hover:after {
+	content: '.';
+	font-size: 0;
+	position: absolute;
+	width: 100%; height: 100%;
+	top: 0; left: 2.5px;
+	border-radius: 5px;
+	border-bottom: solid 1px #ebebeb6e;
+	border-right: solid 1px #ebebeb6e;	
+	border-top: solid 1px #00000054;
+	border-left: solid 1px #00000054;
+}

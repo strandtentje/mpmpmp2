@@ -1,0 +1,313 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: "Radio Canada", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 300;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
+}
+
+input, button {
+	font-family: "Radio Canada", sans-serif;
+}
+
+nav {
+	z-index: 1000;
+	display: block;
+	width: 100svw;
+	box-sizing: border-box;
+	height: 32px;
+	background: linear-gradient(
+		to bottom,
+		#d5eaff 0%,
+		#7188b3 50%,
+		#40657d 50%,
+		#6491b6 85%,
+		#6491b6 85%,
+		#e1fcff 100%);
+	border-bottom: solid 1px #606f83;
+	box-shadow: inset 0px 0px 20px 1px #ffffff00;
+	position: fixed;
+	top: 32px;
+	left: 0px;
+	right: 0px;	
+}
+
+nav a {
+	display: inline-block;
+	
+	text-decoration: none;
+	height: 24px;
+	line-height: 20px;
+	text-align: center;
+	margin: 4px 0 4px 4px;
+	border-radius: 3px;
+
+	color: white;
+	
+	box-sizing: border-box;
+	font-size: 9.5pt;
+	border: solid 1px transparent;
+	padding: 0 0.1cm;
+}
+
+nav a .icon {
+	font-size: 13pt;
+	margin-right: 0.1cm;
+	position: relative;
+	top: 2px;
+}
+
+nav a:hover {
+	border-right: solid 1px #f1f1f1c4;
+	border-bottom: solid 1px #f2f2f2c4;
+	border-left: solid 1px #6b6b6bd1;
+	border-top: solid 1px #2d2d2dcc;
+
+	box-shadow: inset 0px 0px 3px 1px #c4dcf175;
+}
+
+ul.members, ul.members li {
+	list-style-type: none;
+	margin: 0; padding: 0;
+}
+
+ul.members {
+	margin-top: 64px;
+	margin-bottom: 96px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+
+ul.members>li {
+	height: 20px;
+	font-size: 9.5pt;
+	color: #044658;
+	padding: 1px;
+	margin: 2px;
+	border: solid 1px transparent;
+	border-radius: 2px;
+	line-height: 20px;
+	position: relative;
+}
+
+ul.members>li:hover {
+	background: linear-gradient(
+		to bottom,
+		#d8ffff99 0%,
+		#6fbdbd59 50%,
+		#43acac82 50%,
+		#3190904a 100%
+	);
+	border-color: #369292;
+}
+
+ul.members a {
+	text-decoration: none;
+	color: #044658;
+}
+
+ul.members li span {
+	display: inline-block;
+	position: relative;
+	top: -2px;
+}
+
+ul.members li span.icon {
+	width: 32px;
+	text-align: center;
+	font-weight: bold;
+}
+
+ul.members li span.icon input {
+	position: relative;
+	top: 2px;
+	left: -2px;
+}
+
+ul.members li span.icon label,
+ul.members li span.icon input {
+	display: inline-block;
+}
+
+ul.members li span.name {
+	width: calc(calc(100svw - 48px) - 5.5cm);
+	overflow: clip;
+	white-space: nowrap;
+	mask: linear-gradient(to right, white 90%, transparent 100%);
+	/* mask-size: 1cm 100%; */
+	mask-repeat: no-repeat;
+}
+
+ul.members li span.count, ul.members li span.size {
+	width: 2cm;
+	text-align: right;
+}
+
+ul.members li span.write {
+	width: 2cm;
+	text-align: right;
+}
+
+ul.breadcrumbs, ul.breadcrumbs li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.breadcrumbs a {
+	text-decoration: none;
+	color: #474545;
+	font-size: 11pt;
+	font-weight: 200;
+}
+
+ul.breadcrumbs {
+	z-index: 1000;
+	border: solid 1px darkgray;
+	padding: 1px;
+	margin: 1px;
+	background: #efefef;
+	box-shadow: 
+		0px 0px 1px 1px lightgray,
+		inset 0px 0px 1px 1px white;
+	display: block;
+	position: fixed;
+	box-sizing: border-box;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 30px;
+	white-space: nowrap;
+	overflow-x: clip;
+	/* text-justify: inter-word; */
+	/* justify-items: right; */
+}
+
+ul.breadcrumbs li {
+	display: inline-block;
+	text-decoration: none;
+	padding: 1px 7px;
+	margin: 0px 0px 0px 22px;
+	position: relative;
+	top: 1.5px;
+	border: solid 1px transparent;
+}
+
+ul.breadcrumbs li:hover {
+	border: solid 1px #a4a4a4a6;
+	background: linear-gradient(
+		to bottom,
+		#ffffff61 0%,
+		#e8e8e8cc 50%,
+		#ababab6b 50%,
+		#e2e2e29c 100%);
+}
+
+ul.breadcrumbs li:before {
+	content: '›';
+	position: absolute;
+	left: -0.3cm;
+	font-size: 15pt;
+	top: -0.04cm;
+	font-weight: bold;
+	color: #88989d;
+	pointer-events: none;
+}
+
+footer {
+	position: fixed;
+	display: block;
+	
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 96px;
+	background: linear-gradient(
+		100deg,
+		#ecf8ff 0%,
+		#bee8f0 100%);
+	border-top: solid 1px #9cdede;
+	box-shadow: 
+		inset 0px 3px 9px -3px #3589898c, 
+		0px 5px 12px -2px #000000a3,
+		inset 0px -7px 5px -5px #ffffffa8;
+}
+
+footer iframe {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	background: transparent;
+	height: 100%;
+	border: none;
+}
+
+ul.ctxmenu {
+	display: none;
+	position: absolute;
+	z-index: 2000;
+	background: linear-gradient(to bottom, #f4f7ff 0%, #e8f2ff 100%);
+	border: solid 1px #cfd8ea;
+	border-radius: 3px;
+	left: 1cm;
+	box-shadow: 2px 2px 6px -1px #80808061;	
+}
+
+ul.members li:nth-last-child(-n + 5) ~ li ul.ctxmenu {
+	bottom: 0;
+}
+
+ul.ctxmenu button, ul.ctxmenu label {
+	width: 4cm;
+	display: block;
+	box-sizing: border-box;
+	text-align: left;
+	padding-left: 0.8cm;
+	line-height: 0.6cm;
+	margin: 2px;
+	border: solid 1px transparent;
+	border-radius: 2px;
+	background: transparent;
+	color: #2e476bdb;
+	font-weight: lighter;
+}
+
+ul.ctxmenu button:hover, ul.ctxmenu label:hover {
+	border-color: #7ba1d2;
+	background: linear-gradient(to bottom, #f7fdff9e 0%, #bbe4ff70 50%, #99cce17a 50%, #abdbe6 100%);
+}
+
+ul.ctxmenu input {
+	display: none;
+}
+
+ul.ctxmenu, ul.ctxmenu li {
+	margin: 0;
+	padding: 0;
+}
+
+input[name="contextmenu"]:checked ~ ul.ctxmenu {
+	display: block;
+	animation: swoosh;
+	animation-duration: 0.2s;
+}
+
+hr {
+    margin: 0 8px 0;
+    border: inset 1px #aec2e263;
+}
+
+@keyframes swoosh {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

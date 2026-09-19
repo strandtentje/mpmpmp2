@@ -1,0 +1,7 @@
+<<>> : WebServer(["http://+:8244/"]) {
+    : <f"site.rkop">;
+    OnStarted->InformationMessage("Webserver Running");
+    OnHead->SlimDump("[{requesttime}|{remoteip}] {method} {url}");
+    OnStopping->InformationMessage("Webserver Stopping");
+    OnException->!"message" : InformationMessage("Server complains {message}");
+};

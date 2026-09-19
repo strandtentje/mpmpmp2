@@ -1,0 +1,24 @@
+<li class="file {% =cleanext %}"><input type="radio" name="contextmenu" id="{% =fileguid %}"><label for="{% =fileguid %}"><span class="icon">…{% &emojifiletype %}</span></label><a onclick="document.getElementById('{% ;fileguid %}exit').checked = true;" target="preview" href="/tnf/{% =urlremainder %}/{% =onlyname %}"><span class="name">{% &onlyname %}</span><span class="size">{% &cleansize %}</span><span class="write">{% &write:yyyy-MM-dd %}</span></a>
+<ul class="ctxmenu">
+	<li>
+		<form method="post" target="preview" action="/endqueue/{% =urlremainder %}/{% =onlyname %}">
+			<button onclick="document.getElementById('{% ;fileguid %}exit').checked = true;">Play in Queue</button>
+		</form>
+	</li>
+	<li>
+		<form method="post" target="preview" action="/insertqueue/{% =urlremainder %}/{% =onlyname %}">
+			<button onclick="document.getElementById('{% ;fileguid %}exit').checked = true;">Play with Priority</button>
+		</form>
+	</li>
+	<li>
+		<form method="post" target="preview" action="/overridequeue/{% =urlremainder %}/{% =onlyname %}">
+			<button onclick="document.getElementById('{% ;fileguid %}exit').checked = true;">Override Queue</button>
+		</form>
+	</li>
+		<hr>
+	<li>
+		<label for="{% =fileguid %}exit">Close Menu</label>
+		<input type="radio" name="contextmenu" id="{% =fileguid %}exit">
+	</li>
+</ul>
+</li>

@@ -1,0 +1,20 @@
+<<>>
+    : Register(f"rootdirectory.txt") : LineOrDefault(f"mpmpmp") :! "rootdir" : <f"programs.rkop">
+    & InformationMessage("Doodads, Type help for commands") : ConsoleReadLine("Read Commands") {
+        : ~"exit" : InformationMessage("Closing.")        
+        | ~"stop" : StopWebServer() : ["Read Commands"] : <f"server.rkop">
+        | ~"start" : StartWebServer() : ["Read Commands"] : <f"server.rkop">
+        | ~"config" : ShellExecute() { |$f""; } : ["Read Commands"] : InformationMessage("Opening config") 
+        | ~"appdata" : ShellExecute() { |$c""; } : ["Read Commands"] : InformationMessage("Opening appdata")
+        | ~"profile" : ShellExecute() { |$p""; } : ["Read Commands"] : InformationMessage("Opening home") 
+        | ~"browse" : ShellExecute() { |$"{% localipurl %}"; } : ["Read Commands"] : InformationMessage("Opening browser")
+        | ["Read Commands"] : InformationMessage("
+        exit: stop runtime
+        ver:  version information
+        stop: stop server
+        start: start server
+        browse: open in browser
+        config: open configuration directory
+        appdata: open appdata directory
+        profile: open user profile directory");
+    };

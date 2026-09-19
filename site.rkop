@@ -1,0 +1,56 @@
+shorthand is accepted;
+
+<<>> {
+    : Route("GET /static") : Fileserver(f"static")
+    | ExactRoute("GET /") : InformationMessage("DT") : <"@ Desktop">
+    | Route("GET /fs") : tpl(t"skeleton.html") {
+        |~ "content" : <"@ Explorer">;
+    }
+    | Route("GET /tnd") : tpl(t"thumbnail-skel.html") {
+        |~ "content" : <"@ Directory Thumbnail">;
+    }
+    | Route("GET /tnf") : tpl(t"thumbnail-skel.html") {
+        |~ "content" : <"@ File Thumbnail">;
+    }
+    | ExactRoute("GET /pfl") : tpl(t"profiler-list.html") {
+        |~ "items" : ProfileByHeaviest("Profile") : ["Profile"] : tpl(t"profiler-item.html");
+    };
+}; 
+
+<<"Desktop">> : tpl(t"desktop.html");
+
+<<"Explorer">> 
+    : EnableProfiler()
+    & SafePathJoin(explore = ["{rootdir}", "{urlremainder}"]) 
+    : Info() {
+        |$ "Path not found";
+        :? "type" :~ "dir" : <"@ Directory Listing">;
+    }
+    & DisableProfiler();
+
+<<"Directory Listing">> : tpl(t"dirlisting.html") {
+    |~ "breadcrumbs" { :? "urlremainder" : Breadcrumbs("Path Breadcrumbs") : ["Path Breadcrumbs"] : tpl(t"205-breadcrumb.html"); }
+    |~ "members" :? "explore" : Dir("Visible Directory Members") {
+        : ["Visible Directory Members"] : Info("onlypath", "onlyname") : tpl(t"subdir.html");
+        | ["Visible Directory Members"] : Info("onlypath", "onlyname") : NewGuid() :! "fileguid" : tpl(t"subfile.html");
+    };
+};
+
+<<"Directory Thumbnail">> : SafePathJoin(thumbdir = ["{rootdir}", "{urlremainder}"]) : Info() {
+    |$ "Directory not found";
+    :? "type" :~ "dir" : tpl(t"thumbnail-dir.html");
+};
+
+<<"File Thumbnail">> : SafePathJoin(thumbfile = ["{rootdir}", "{urlremainder}"]) : Info() {
+    |$ "File not found";
+    : AtomicMetadata() {
+         : tpl(t"thumbnail-file.html") {
+            |~ "picture" : PictureMetadata("Pictures") {
+                :! "picture64" : tpl(t"thumbnail-picture.html");
+                | tpl(t"thumbnail-icon.html");
+            }
+            |~ "performers" : PerformerMetadata("Performers") : ["Performers"] :! "performer" :$ "{% &performer %}";
+         };
+         | tpl(t"thumbnail-unsupported.html");
+    };
+};

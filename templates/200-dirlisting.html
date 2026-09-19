@@ -1,0 +1,16 @@
+<ul class="breadcrumbs">
+	<li><a href="/fs">Home</a></li>
+	{% >breadcrumbs %}
+</ul>
+<nav>
+	<a id="dirup" href="/fs/{% =urlremainder %}/.."><span class="icon">⬆️</span>Directory Up</a>
+	<a id="gohome" href="/fs"><span class="icon">🏠</span>Home</a>
+</nav>
+<ul class="members">
+	{% >members %}
+</ul>
+<footer>
+	<iframe src="/tnd/{% =urlremainder %}" name="preview">
+		
+	</iframe>
+</footer>
