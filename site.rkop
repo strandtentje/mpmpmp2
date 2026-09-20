@@ -6,16 +6,47 @@ shorthand is accepted;
     | Route("GET /fs") : tpl(t"skeleton.html") {
         |~ "content" : <"@ Explorer">;
     }
+    | Route("GET /pls") : tpl(t"mp-skeleton.html") {
+        |~ "items" : MpvPlaylist("Playlist Items") : tpl(t"mp-item.html");
+    }
     | Route("GET /tnd") : tpl(t"thumbnail-skel.html") {
         |~ "content" : <"@ Directory Thumbnail">;
     }
     | Route("GET /tnf") : tpl(t"thumbnail-skel.html") {
         |~ "content" : <"@ File Thumbnail">;
     }
+    | Route("POST /endqueue") : <"@ Append to End of Queue">
+    | Route("POST /insertqueue") : <"@ Insert after Current">
+    | Route("POST /overridequeue") : <"@ Replace Queue">
+
+    | Route("GET /pause") { : reg("yes") : MpvPropertySet("pause") & fredir("/mpctrl"); }
+    | Route("GET /resume") { : reg("no") : MpvPropertySet("pause") & fredir("/mpctrl"); }
+    | Route("GET /next") { : MpvCommand("playlist-next") & fredir("/mpctrl"); }
+    | Route("GET /prev") { : MpvCommand("playlist-prev") & fredir("/mpctrl"); }
+    | Route("GET /vol/{$vol$}") { :? "vol" : MpvPropertySet("ao-volume") & fredir("/mpctrl"); }
+    | Route("GET /pos/{$pos$}") { :? "pos" : MpvPropertySet("percent-pos") & fredir("/mpctrl"); }
+
+    | Route("GET /mpctrl") : <"@ Playback Controls">
+
     | ExactRoute("GET /pfl") : tpl(t"profiler-list.html") {
         |~ "items" : ProfileByHeaviest("Profile") : ["Profile"] : tpl(t"profiler-item.html");
     };
 }; 
+
+<<"Playback Controls">> : MpvPropertyGet("media-title") :! "mediatitle" : tpl(t"mp-playback-controls.html") {
+    |~ "playpause" : MpvPropertyGet("pause") {
+        :~ "no" { : tpl(t"mp-pause-button.html") }
+        | tpl(t"mp-resume-button.html");
+    }
+    |~ "volume" { : MpvPropertyGet("ao-volume") :! "volumelevel" : tpl(t"mp-volume-slider.html"); }
+    |~ "position" { : MpvPropertyGet("percent-pos") :! "position" : tpl(t"mp-playback-position.html"); };
+};
+
+<<"Append to End of Queue">> : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "append-play");
+
+<<"Insert after Current">> : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "insert-next-play");
+
+<<"Replace Queue">> : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "replace");
 
 <<"Desktop">> : tpl(t"desktop.html");
 

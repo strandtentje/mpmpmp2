@@ -19,6 +19,9 @@ html, body {
 body {
 	padding: 12px 0;
 	opacity: 1;
+}
+
+body:not(#controls) {
 	animation-name: fadein;
 	animation-duration: 1s;
 }
@@ -67,4 +70,189 @@ dd {
   100% {
     opacity: 1;
   }
+}
+
+
+div.position {
+	top: 32px;
+	position: absolute;
+	left: 32px;
+	right: 32px;
+}
+
+div.volume {
+	top: 72px;
+	position: absolute;
+	right: 32px;
+	width: 3cm;
+}
+
+div.levelview,
+div.positionview {
+	box-sizing: border-box;
+	position: relative;
+	width: 100%;
+	height: 7px;
+	background: linear-gradient(
+		to bottom,
+		#becde7 50%, 
+		#93a0cd 50%
+	);
+	border: solid 1px lightblue;
+	border-radius: 2px;
+	z-index: 10;
+}
+
+div.levelbar,
+div.positionbar {
+	z-index: 20;
+	position: absolute;
+	top: -2px;
+	height:7px;
+	left: -2px;
+	background: linear-gradient(
+		to bottom,
+		#c9f2ff 0%,
+		#58aff3 50%,
+		#6f6fbd 50%,
+		#7272ff 100%
+	);
+	border-radius: 2px;
+	border: solid 1px lightblue;	
+}
+
+div.segments,
+div.times {
+	width: 100%;
+	font-size: 0;
+	position: absolute;
+	z-index: 200;
+	top: -2px;
+}
+
+div.segments form,
+div.times form {
+	display: inline-block;
+	width: calc(100% / 26);
+}
+
+div.segments form button,
+div.times form button {
+	width: 100%;
+	min-width: 5px;
+	font-size: 0;
+	height: 11px;
+	z-index: 100;
+	display: block;
+	border-radius: 8px;
+	border: solid 1px #afd9e6;
+	box-shadow: 0px 0px 4px 1px #8484e6a6;
+	opacity: 0;
+	background: linear-gradient(
+		to bottom,
+		#6f9bda 0%,
+		#2c5cc7 50%,
+		#36369e 50%,
+		#7272ff 100%		
+	);
+	transition: 0.3s;
+}
+
+div.segments form button:hover,
+div.times form button:hover {
+	opacity: 1;
+	transition: 0.3s;
+}
+
+span.title {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+form.prev, form.next, form.resume, form.pause {
+	position: absolute;
+	top: 52px;
+}
+
+form.prev, form.next,
+form.resume, form.pause {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 56px;
+	height: 56px;
+}
+
+form.resume, form.pause {
+	left: 84px;
+	width: 64px;
+}
+
+form.prev {
+	left: 16px;
+	width: 64px;
+}
+
+form.next {
+	left: 151px;
+	width: 64px;
+}
+
+form.prev button, form.next button,
+form.resume button, form.pause button {
+	width: 100%;
+	height: 100%;
+	font-size: 36pt;
+	line-height: 12pt;
+	color: white;
+	border-radius: 36pt;
+}
+
+form.prev button, form.next button {
+	font-size: 28pt;
+}
+form.resume button {
+	font-size: 20pt;
+	text-align: center;
+	line-height: 0pt;
+}
+
+form.prev button, form.next button,
+form.resume button, form.pause button {
+	border-radius: 0px;
+	border: none;
+	background: 	
+		radial-gradient(circle 240px at 50% 0px,
+					   #55a6b9 0%, 
+						#1d3562 49%, 
+						#4e6c89 50%, 
+						#cadeeb 80%);
+	box-shadow: 
+		inset 4px 20px 30px -25px #7ab1ff,
+		0px 3px 4px -1px #817979cc;
+	border-bottom: solid 1px #254363;
+	transition: 0.1s ease-in-out;
+}
+
+form.prev button {
+	border-top-left-radius: 52px;
+	border-bottom-left-radius:52px;
+}
+form.next button {
+	border-top-right-radius: 52px;
+	border-bottom-right-radius:52px;
+}
+
+form.prev button:hover, form.next button:hover,
+form.resume button:hover, form.pause button:hover {
+	transition: 0.1s ease-in-out;
+	background: 	
+		radial-gradient(circle 240px at 50% 0px,
+					   #c1fff9 0%, #2d657d 49%, #7192a4 50%, #fbffff 80%);
+	box-shadow: 
+		inset 4px 20px 30px -25px #ffffff,
+		0px 3px 4px 1px #3c80a6;
+	border-bottom: solid 1px #6988a3;
+	
 }

@@ -112,6 +112,10 @@ ul.members a {
 ul.members li span {
 	display: inline-block;
 	position: relative;
+	top: 0;
+}
+
+ul.members li.file span {
 	top: -2px;
 }
 
