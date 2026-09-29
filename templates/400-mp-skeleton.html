@@ -3,19 +3,22 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/static/fswag.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 	
 	<title>Media Player</title>
 </head>
 <body>
-	<ul>
+	<ul class="playback members">
 		{% >items %}
 	</ul>
-	<nav>
-		<form method="get" action="/pause" class="pause">
-			<button>Pause</button>
-		</form>
-		<form method="get" action="/">
-	</nav>
-	<iframe name="formsink"></iframe>
+	<iframe name="postsink" style="display: none;"></iframe>
+	<footer class="playback">
+		<iframe src="/mpctrl">
+			
+		</iframe>
+	</footer>
 </body>
 </html>

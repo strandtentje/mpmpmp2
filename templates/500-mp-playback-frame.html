@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Playback Controls</title>
+	<link rel="stylesheet" type="text/css" href="/static/tswag.css">
+	<script>
+		var ctls = null;
+		function refreshPart(nd)
+		{
+			if (nd)
+				fetch("/justcontrols").then(r => r.text()).then(t => { if (t) ctls.innerHTML = t; }).catch(x => console.log(x));
+			else 
+				setTimeout(function() {
+					fetch("/justcontrols").then(r => r.text()).then(t => { if (t) ctls.innerHTML = t; }).catch(x => console.log(x));
+				}, 100);
+		}
+		
+	</script>
+</head>
+<body id="controls">
+	{% >innards %}
+</body>
+<script>
+	(function() {
+		var interval = null;
+		ctls = document.getElementById("controls");
+
+		interval = setInterval(function() {
+			refreshPart(1);
+		}, 3300);
+	})();
+</script>
+</html>

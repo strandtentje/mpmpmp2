@@ -1,4 +1,13 @@
-<li class="{% =playing %}">
-	<span class="ordinal">{% &ordinal:0000 %}</span>
+<li class="isplaying{% =playing %} {% =type %}" id="ord{% &ordinal %}">
+	<span class="icon">…{% &emojifiletype %}</span>
+	<span class="ordinal">{% &ordinal:0 %}</span>
 	<span class="title">{% &title %}</span>
+	<span class="album">{% &album %}</span>
+	<span class="artist">{% &artist %}</span>
+	<form method="post" action="/delix/{% &ordinal:0000 %}">
+		<button>❌</button>
+	</form>
+	<form method="post" action="/plyix/{% &ordinal:0000 %}">
+		<button>▶️</button>
+	</form>
 </li>

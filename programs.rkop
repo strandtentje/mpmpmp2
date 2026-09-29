@@ -1,1 +1,7 @@
-<<>> : Fork() : StartWebServer() : <f"server.rkop">;
+<<>> { 
+	: Fork() : StartWebServer() : <f"server.rkop">
+	& Register("yes") : MpvPropertySet("fullscreen")
+	& MpvOverlayLayer(0) : MpvOverlayRectangle("0", "0", "1920", "1080") : MpvSetOverlayImage(f"static/overlay-explain.png") 
+	& MpvOverlayLayer(1) : MpvOverlayRectangle("0", "0", "1920", "1080") : MpvSetOverlayImage(f"static/overlay-logo.png") 
+	;
+};

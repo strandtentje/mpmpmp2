@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Playback Controls</title>
-	<meta http-equiv="refresh" content="2">
-	<link rel="stylesheet" type="text/css" href="/static/tswag.css">
-</head>
-<body id="controls">
-	<span class="title">{% &mediatitle %}</span>
-	{% >position %}
-	<form method="get" action="/prev" class="prev">
-		<button>⏮</button>
-	</form>
-	{% >playpause %}
-	<form method="get" action="/next" class="next">
-		<button>⏭</button>
-	</form>
-	{% >volume %}
-</body>
-</html>
+<span class="title" id="currenttitle">{% &mediatitle %}</span>
+{% >position %}
+<form target="submittor" method="get" action="/prev" class="prev">
+	<button>⏮</button>
+</form>
+<div id="plpabtn">{% >playpause %}</div>
+<form target="submittor" method="get" action="/next" class="next">
+	<button>⏭</button>
+</form>
+{% >volume %}
+<iframe name="submittor" style="display: none;"></iframe>

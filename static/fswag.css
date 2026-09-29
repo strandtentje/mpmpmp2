@@ -6,10 +6,12 @@ html, body {
 	font-weight: 300;
 	font-style: normal;
 	font-variation-settings: "wdth" 100;
+	background-color: #fefefe;
 }
 
 input, button {
 	font-family: "Radio Canada", sans-serif;
+	font-weight: 300;
 }
 
 nav {
@@ -34,9 +36,10 @@ nav {
 	right: 0px;	
 }
 
-nav a {
+nav form { display: inline-block; }
+nav a, nav button {
 	display: inline-block;
-	
+	background-color: transparent;
 	text-decoration: none;
 	height: 24px;
 	line-height: 20px;
@@ -59,7 +62,7 @@ nav a .icon {
 	top: 2px;
 }
 
-nav a:hover {
+nav a:hover, nav button:hover {
 	border-right: solid 1px #f1f1f1c4;
 	border-bottom: solid 1px #f2f2f2c4;
 	border-left: solid 1px #6b6b6bd1;
@@ -80,6 +83,10 @@ ul.members {
 	padding-bottom: 4px;
 }
 
+ul.playback.members {
+	margin-bottom: 128px;
+	margin-top: 0;
+}
 
 ul.members>li {
 	height: 20px;
@@ -93,6 +100,11 @@ ul.members>li {
 	position: relative;
 }
 
+ul.playback.members>li form {
+	display: inline-block;
+	float: right;
+}
+
 ul.members>li:hover {
 	background: linear-gradient(
 		to bottom,
@@ -102,6 +114,17 @@ ul.members>li:hover {
 		#3190904a 100%
 	);
 	border-color: #369292;
+}
+
+ul.members>li.isplayingyes {
+	background: linear-gradient(
+		to bottom,
+		#d9ffd899 0%,
+		#6fbd7159 50%,
+		#50ac4382 50%,
+		#3190464a 100%
+	);
+	border-color: #369292;	
 }
 
 ul.members a {
@@ -238,6 +261,10 @@ footer {
 		inset 0px 3px 9px -3px #3589898c, 
 		0px 5px 12px -2px #000000a3,
 		inset 0px -7px 5px -5px #ffffffa8;
+}
+
+footer.playback {
+	height: 128px;
 }
 
 footer iframe {

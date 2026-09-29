@@ -5,10 +5,20 @@
 <nav>
 	<a id="dirup" href="/fs/{% =urlremainder %}/.."><span class="icon">⬆️</span>Directory Up</a>
 	<a id="gohome" href="/fs"><span class="icon">🏠</span>Home</a>
+	<form target="psink2" method="post" action="/endqueue/{% =urlremainder %}">
+		<button class="endqueue">Add to Queue</button>
+	</form>
+	<form target="psink2" method="post" action="/insertqueue/{% =urlremainder %}">
+		<button class="endqueue">Play Next</button>
+	</form>
+	<form target="psink2" method="post" action="/overridequeue/{% =urlremainder %}">
+		<button class="endqueue">Play Now</button>
+	</form>
 </nav>
 <ul class="members">
 	{% >members %}
 </ul>
+<iframe name="psink2" style="display: none;"></iframe>
 <footer>
 	<iframe src="/tnd/{% =urlremainder %}" name="preview">
 		

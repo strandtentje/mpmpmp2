@@ -13,22 +13,31 @@
 				<div id="buttonhole">
 				</div>
 				<div id="quicklaunch">
-					<button id="explorebutton">
-						📁
-					</button>
-					<button id="playlistbutton">
-						💿
-					</button>
+					<form method="get" action="/pls" target="window">
+						<button id="explorebutton">
+							💿
+						</button>
+					</form>
+					<form method="get" action="/fs" target="window">
+						<button id="playlistbutton">
+							📁
+						</button>
+					</form>
 				</div>
 			</div>
-			<button id="mainbutton" onclick="window.location.href='/'">
-			</button>
+			<form method="get" action="about:blank" target="window">
+				<button id="mainbutton" onclick="window.location.href='/'">
+				</button>
+			</form>
 		</div>
 	</nav>
 	<content>
 		<div id="desktopicons">
 			
 		</div>
+		<iframe src="" name="window">
+			
+		</iframe>
 		{% >content %}		
 	</content>
 

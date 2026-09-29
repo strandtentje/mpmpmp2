@@ -1,5 +1,5 @@
 <<>>
-    : MpvInstance() : Register(f"rootdirectory.txt") : LineOrDefault(f"mpmpmp") :! "rootdir" : <f"programs.rkop">
+    : MpvInstance(bg = "#6c6e6b") : Register(f"rootdirectory.txt") : LineOrDefault(f"mpmpmp") :! "rootdir" : <f"programs.rkop">
     & InformationMessage("Doodads, Type help for commands") : ConsoleReadLine("Read Commands") {
         : ~"exit" : InformationMessage("Closing.")        
         | ~"stop" : StopWebServer() : ["Read Commands"] : <f"server.rkop">

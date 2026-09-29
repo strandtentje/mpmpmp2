@@ -1,13 +1,19 @@
 shorthand is accepted;
 
 <<>> {
-    : Route("GET /static") : Fileserver(f"static")
+    : EnableProfiler() 
+    & Route("GET /static") : Fileserver(f"static")
     | ExactRoute("GET /") : InformationMessage("DT") : <"@ Desktop">
     | Route("GET /fs") : tpl(t"skeleton.html") {
         |~ "content" : <"@ Explorer">;
     }
     | Route("GET /pls") : tpl(t"mp-skeleton.html") {
-        |~ "items" : MpvPlaylist("Playlist Items") : tpl(t"mp-item.html");
+        |~ "items" : MpvPlaylist("Playlist Items") :? "file" : Info() {
+            :? "type" :~ "dir" {
+                |? "path" : AtomicMetadata(cache = true) : PerformerMetadata("First Performer") :! "artist" : tpl(t"mp-item.html");
+                :? "name" :! "title" : Register("Queued Directory") :! "album" : tpl(t"mp-item.html");
+            };
+        };
     }
     | Route("GET /tnd") : tpl(t"thumbnail-skel.html") {
         |~ "content" : <"@ Directory Thumbnail">;
@@ -19,45 +25,83 @@ shorthand is accepted;
     | Route("POST /insertqueue") : <"@ Insert after Current">
     | Route("POST /overridequeue") : <"@ Replace Queue">
 
+    | Route("GET /ol") : MpvPropertyGet("osd-level") :! "osd-level" :$ "{% &osd-level %}"
+    | Route("GET /ols") : Register(2) : MpvPropertySet("osd-level")
+
     | Route("GET /pause") { : reg("yes") : MpvPropertySet("pause") & fredir("/mpctrl"); }
     | Route("GET /resume") { : reg("no") : MpvPropertySet("pause") & fredir("/mpctrl"); }
-    | Route("GET /next") { : MpvCommand("playlist-next") & fredir("/mpctrl"); }
-    | Route("GET /prev") { : MpvCommand("playlist-prev") & fredir("/mpctrl"); }
+    | Route("GET /next") { : MpvCommand("playlist-next") & fredir("/mpctrl") & Register("yes") : MpvPropertySet("fullscreen") ; }
+    | Route("GET /prev") { : MpvCommand("playlist-prev") & fredir("/mpctrl") & Register("yes") : MpvPropertySet("fullscreen") ; }
     | Route("GET /vol/{$vol$}") { :? "vol" : MpvPropertySet("ao-volume") & fredir("/mpctrl"); }
     | Route("GET /pos/{$pos$}") { :? "pos" : MpvPropertySet("percent-pos") & fredir("/mpctrl"); }
 
-    | Route("GET /mpctrl") : <"@ Playback Controls">
+    | Route("GET /mpctrl") : tpl(t"mp-playback-frame.html") { | <"@ Playback Controls">; }
+    | Route("GET /justcontrols") : <"@ Playback Controls">
+    | Route("GET /volbar") : <"@ Volume Bar">
+    | Route("GET /posbar") : <"@ Position Bar">
+    | Route("GET /plpabtn") : <"@ Play Pause Button">
+    | Route("GET /currenttitle") : MpvPropertyGet("media-title") :! "mt" :$ "{% &mt %}"
+    | Route("GET /idle") : MpvPropertyGet("core-idle") :! "idle" :$ "{% &idle %}"
+    | Route("GET /eof") : MpvPropertyGet("eof-reached") :! "eof" :$ "{% &eof %}"
+
+    | Route("POST /delix/{#ix#}") {
+        : MpvCommand("playlist-remove", "{ix}")
+        & fredir("/pls#{% :ix %}");
+    }
+
+    | Route("POST /plyix/{#ix#}") { 
+        : MpvCommand("playlist-play-index", "{ix}") 
+        & reg("no") : MpvPropertySet("pause")
+        & fredir("/pls#{% :ix %}");
+    }
 
     | ExactRoute("GET /pfl") : tpl(t"profiler-list.html") {
         |~ "items" : ProfileByHeaviest("Profile") : ["Profile"] : tpl(t"profiler-item.html");
-    };
+    }
+
+    & DisableProfiler();
 }; 
 
 <<"Playback Controls">> : MpvPropertyGet("media-title") :! "mediatitle" : tpl(t"mp-playback-controls.html") {
-    |~ "playpause" : MpvPropertyGet("pause") {
-        :~ "no" { : tpl(t"mp-pause-button.html") }
-        | tpl(t"mp-resume-button.html");
-    }
-    |~ "volume" { : MpvPropertyGet("ao-volume") :! "volumelevel" : tpl(t"mp-volume-slider.html"); }
-    |~ "position" { : MpvPropertyGet("percent-pos") :! "position" : tpl(t"mp-playback-position.html"); };
+    |~ "playpause" : <"@ Play Pause Button">
+    |~ "position" : tpl(t"mp-playback-position.html") { | <"@ Position Bar">; }
+    |~ "volume" : tpl(t"mp-volume-slider.html") { | <"@ Volume Bar">;  }
 };
 
-<<"Append to End of Queue">> : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "append-play");
+<<"Play Pause Button">> : MpvPropertyGet("pause") {
+    :~ "no" { : tpl(t"mp-pause-button.html") }
+    | tpl(t"mp-resume-button.html");
+};
 
-<<"Insert after Current">> : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "insert-next-play");
+<<"Volume Bar">> : MpvPropertyGet("ao-volume") :! "volumelevel" : tpl(t"levelbar.html");
+<<"Position Bar">> : MpvPropertyGet("percent-pos") :! "position" : tpl(t"positionbar.html");
 
-<<"Replace Queue">> : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "replace");
+<<"Append to End of Queue">> {
+    : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "append-play")
+    & Register("yes") : MpvPropertySet("fullscreen");
+
+};
+
+<<"Insert after Current">> {
+    : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "insert-next-play")
+    & Register("yes") : MpvPropertySet("fullscreen");
+
+};
+
+<<"Replace Queue">> {
+    : SafePathJoin(toplay = ["{rootdir}", "{urlremainder}"]) : MpvCommand("loadfile", "{toplay}", "replace")
+    & Register("yes") : MpvPropertySet("fullscreen");
+
+};
 
 <<"Desktop">> : tpl(t"desktop.html");
 
 <<"Explorer">> 
-    : EnableProfiler()
-    & SafePathJoin(explore = ["{rootdir}", "{urlremainder}"]) 
+    : SafePathJoin(explore = ["{rootdir}", "{urlremainder}"]) 
     : Info() {
         |$ "Path not found";
         :? "type" :~ "dir" : <"@ Directory Listing">;
-    }
-    & DisableProfiler();
+    };
 
 <<"Directory Listing">> : tpl(t"dirlisting.html") {
     |~ "breadcrumbs" { :? "urlremainder" : Breadcrumbs("Path Breadcrumbs") : ["Path Breadcrumbs"] : tpl(t"205-breadcrumb.html"); }
