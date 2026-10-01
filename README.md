@@ -1,1 +1,1 @@
-if you want to run this, you're going to need [doodads](https://github.com/strandtentje/doodads)
+if you want to run this, you're going to need [doodads](https://github.com/strandtentje/doodads) and also version 0.40 of libmpv. earlier and later versions do work, but for reasons above my paygrade, overlay images break in other versions. 
