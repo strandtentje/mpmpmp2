@@ -14,7 +14,7 @@ input, button {
 	font-weight: 300;
 }
 
-nav {
+nav, nav .uploadbox {
 	z-index: 1000;
 	display: block;
 	width: 100svw;
