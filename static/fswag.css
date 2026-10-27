@@ -18,8 +18,7 @@ nav, nav .uploadbox {
 	z-index: 1000;
 	display: block;
 	width: 100svw;
-	box-sizing: border-box;
-	height: 32px;
+	box-sizing: border-box;	
 	background: linear-gradient(
 		to bottom,
 		#d5eaff 0%,
@@ -77,10 +76,16 @@ ul.members, ul.members li {
 }
 
 ul.members {
-	margin-top: 64px;
+	margin-top: 96px;
 	margin-bottom: 96px;
 	padding-top: 4px;
 	padding-bottom: 4px;
+}
+
+@media(min-width: 512px) {
+	ul.members {
+		margin-top: 64px;
+	}
 }
 
 ul.playback.members {
