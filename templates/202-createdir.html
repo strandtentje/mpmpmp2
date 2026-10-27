@@ -1,0 +1,5 @@
+<form method="post" action="/fs/{% =urlremainder %}">			
+	<input type="hidden" value="directory_create" minlength="16" maxlength="16" name="directory_create">
+	<input type="text" name="newdirname" minlength="1" maxlength="30" pattern="(([a-zA-Z0-9-_]+)+)" placeholder="New Directory Name">
+	<button>Create</button>
+</form>
